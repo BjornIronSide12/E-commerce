@@ -10,8 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 public class FakeStoreMultipleProductsDto {
-    String status;
-    String message;
+    StatusMessageDto statusMessageDto;
     List<FakeStoreProductDto> products;
 
     public static List<ProductDto> getProductDtoFromFakeStoreMultipleProductDto(FakeStoreMultipleProductsDto fakeStoreDtoList) {

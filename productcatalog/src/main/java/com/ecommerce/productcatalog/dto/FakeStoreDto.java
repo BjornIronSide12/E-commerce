@@ -7,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FakeStoreDto {
-    String status;
-    String message;
+    StatusMessageDto statusMessageDto;
     FakeStoreProductDto product;
 
     public static ProductDto getProductDtoFromFakeStoreDto(FakeStoreDto fakeStoreDto) {

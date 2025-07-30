@@ -1,6 +1,7 @@
 package com.ecommerce.productcatalog.service;
 
 import com.ecommerce.productcatalog.dto.ProductDto;
+import com.ecommerce.productcatalog.dto.StatusMessageDto;
 import com.ecommerce.productcatalog.models.Product;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +19,11 @@ public class SImpleProductServiceImpl implements ProductService{
     public List<ProductDto> getAllProducts() {
         return List.of();
     }
+
+    @Override
+    public StatusMessageDto deleteProductById(Long id) {
+        return null;
+    }
+
+
 }

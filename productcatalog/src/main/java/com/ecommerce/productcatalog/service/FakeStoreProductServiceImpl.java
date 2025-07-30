@@ -4,6 +4,7 @@ import com.ecommerce.productcatalog.dto.FakeStoreDto;
 import com.ecommerce.productcatalog.dto.FakeStoreMultipleProductsDto;
 import com.ecommerce.productcatalog.dto.ProductDto;
 
+import com.ecommerce.productcatalog.dto.StatusMessageDto;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
@@ -36,6 +37,7 @@ public class FakeStoreProductServiceImpl implements ProductService{
             must be explicitly mentioned after ','
            */
 
+        // calling fakestore api by using webclient
         Mono<FakeStoreDto> fakeStoreDtoMono = webClient.get()
                 .uri("/{id}", id) // passed id will be fetched inside -- > {id}
                 .retrieve().bodyToMono(FakeStoreDto.class);
@@ -49,6 +51,7 @@ public class FakeStoreProductServiceImpl implements ProductService{
     @Override
     public List<ProductDto> getAllProducts() {
 
+        // calling fakestore api by using webclient
         Mono<FakeStoreMultipleProductsDto> fakeStoreDtoMono = webClient.get().uri("?limit=5")
                 .retrieve().bodyToMono(FakeStoreMultipleProductsDto.class);
 
@@ -58,5 +61,19 @@ public class FakeStoreProductServiceImpl implements ProductService{
 
         return getProductDtoFromFakeStoreMultipleProductDto(fakeStoreDtos);
 
+    }
+
+    @Override
+    public StatusMessageDto deleteProductById(Long id) {
+
+        // calling fakestore api by using webclient
+        Mono<StatusMessageDto> statusMessageDtoMono = webClient.delete().uri("/{id}", id)
+                .retrieve().bodyToMono(StatusMessageDto.class);
+
+        StatusMessageDto statusMessageDto = statusMessageDtoMono.block();
+        return statusMessageDto == null ?
+                new StatusMessageDto("Not found", "Unable to get any response from fakestore delete api") :
+                statusMessageDto
+                ;
     }
 }
