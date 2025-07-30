@@ -15,5 +15,4 @@ public class ProductDto {
     String model;
     String color;
     String category;
-
 }

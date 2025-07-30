@@ -14,19 +14,17 @@ public class FakeStoreMultipleProductsDto {
     String message;
     List<FakeStoreProductDto> products;
 
-    public static List<ProductDto> getProductDtoFromFakeStoreMultipleProductDto(FakeStoreMultipleProductsDto fakeStoreDto) {
+    public static List<ProductDto> getProductDtoFromFakeStoreMultipleProductDto(FakeStoreMultipleProductsDto fakeStoreDtoList) {
 
+        // null check
+        if(fakeStoreDtoList == null) {
+            return null;
+        }
+
+        // converting list of FakeStoreProductDto 
         List<ProductDto> productDtoList = new ArrayList<>();
-        for(FakeStoreProductDto fakeStoreProductDto: fakeStoreDto.getProducts()) {
-            ProductDto productDto = new ProductDto();
-            productDto.setTitle(fakeStoreProductDto.getTitle());
-            productDto.setImage(fakeStoreProductDto.getImage());
-            productDto.setPrice(fakeStoreProductDto.getPrice());
-            productDto.setDescription(fakeStoreProductDto.getDescription());
-            productDto.setBrand(fakeStoreProductDto.getBrand());
-            productDto.setModel(fakeStoreProductDto.getModel());
-            productDto.setColor(fakeStoreProductDto.getColor());
-            productDto.setCategory(fakeStoreProductDto.getCategory());
+        for(FakeStoreProductDto fakeStoreProductDto: fakeStoreDtoList.getProducts()) {
+            ProductDto productDto = FakeStoreProductDto.getProductDtoFromFakeStoreProductDto(fakeStoreProductDto);
 
             productDtoList.add(productDto);
         }

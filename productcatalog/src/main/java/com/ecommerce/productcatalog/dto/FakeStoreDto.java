@@ -13,16 +13,7 @@ public class FakeStoreDto {
 
     public static ProductDto getProductDtoFromFakeStoreDto(FakeStoreDto fakeStoreDto) {
 
-            ProductDto productDto = new ProductDto();
-            productDto.setTitle(fakeStoreDto.getProduct().getTitle());
-            productDto.setImage(fakeStoreDto.getProduct().getImage());
-            productDto.setPrice(fakeStoreDto.getProduct().getPrice());
-            productDto.setDescription(fakeStoreDto.getProduct().getDescription());
-            productDto.setBrand(fakeStoreDto.getProduct().getBrand());
-            productDto.setModel(fakeStoreDto.getProduct().getModel());
-            productDto.setColor(fakeStoreDto.getProduct().getColor());
-            productDto.setCategory(fakeStoreDto.getProduct().getCategory());
-
-           return productDto;
+//  simply returning the productDto after converting
+            return FakeStoreProductDto.getProductDtoFromFakeStoreProductDto(fakeStoreDto.getProduct());
     }
 }
