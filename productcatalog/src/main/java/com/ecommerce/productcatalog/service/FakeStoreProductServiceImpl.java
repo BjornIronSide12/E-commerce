@@ -70,6 +70,10 @@ public class FakeStoreProductServiceImpl implements ProductService{
         Mono<StatusMessageDto> statusMessageDtoMono = webClient.delete().uri("/{id}", id)
                 .retrieve().bodyToMono(StatusMessageDto.class);
 
-        return statusMessageDtoMono.block();
+        StatusMessageDto statusMessageDto = statusMessageDtoMono.block();
+        return statusMessageDto == null ?
+                new StatusMessageDto("Not found", "Unable to get any response from fakestore delete api") :
+                statusMessageDto
+                ;
     }
 }
