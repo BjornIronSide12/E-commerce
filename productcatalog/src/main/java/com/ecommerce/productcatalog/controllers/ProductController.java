@@ -1,15 +1,15 @@
 package com.ecommerce.productcatalog.controllers;
 
 import com.ecommerce.productcatalog.dto.ProductDto;
+import com.ecommerce.productcatalog.dto.StatusMessageDto;
 import com.ecommerce.productcatalog.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/products")
@@ -25,7 +25,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-//    API
+//    APIs
 
     @GetMapping("/")
     public ResponseEntity<List<ProductDto>> getAllProduct() {
@@ -38,6 +38,16 @@ public class ProductController {
     public ResponseEntity<ProductDto> getProductById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(productService.getProductById(id),
                 HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<StatusMessageDto> deleteProductById(@PathVariable("id") Long id) {
+
+        return new ResponseEntity<>(
+                productService.deleteProductById(id),
+        HttpStatus.OK
+                );
     }
 
 }
