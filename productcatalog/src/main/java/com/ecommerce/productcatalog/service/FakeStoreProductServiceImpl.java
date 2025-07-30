@@ -73,7 +73,6 @@ public class FakeStoreProductServiceImpl implements ProductService{
         StatusMessageDto statusMessageDto = statusMessageDtoMono.block();
         return statusMessageDto == null ?
                 new StatusMessageDto("Not found", "Unable to get any response from fakestore delete api") :
-                statusMessageDto
-                ;
+                statusMessageDto;
     }
 }
