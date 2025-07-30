@@ -8,10 +8,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class AppConfiguration {
 
+    final String productBaseUrl = "https://fakestoreapi.in/api/products";
+
     @Bean
     public WebClient webClient() {
         return WebClient.builder()
-                .baseUrl("https://fakestoreapi.in/api/")
+                .baseUrl(productBaseUrl)
                 .build();
     }
 }

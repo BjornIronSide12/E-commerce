@@ -1,14 +1,25 @@
 package com.ecommerce.productcatalog.service;
 
 import com.ecommerce.productcatalog.dto.FakeStoreDto;
+import com.ecommerce.productcatalog.dto.FakeStoreMultipleProductsDto;
 import com.ecommerce.productcatalog.dto.ProductDto;
 
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import static com.ecommerce.productcatalog.dto.FakeStoreDto.getProductDtoFromFakeStoreDto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static com.ecommerce.productcatalog.dto.FakeStoreDto.getProductDtoFromFakeStoreDto;
+import static com.ecommerce.productcatalog.dto.FakeStoreMultipleProductsDto.getProductDtoFromFakeStoreMultipleProductDto;
+
+@Primary
 @Service("fakeStoreProductService")
 public class FakeStoreProductServiceImpl implements ProductService{
 
@@ -21,17 +32,31 @@ public class FakeStoreProductServiceImpl implements ProductService{
 
     @Override
     public ProductDto getProductById(Long id) {
-        Mono<FakeStoreDto> fakeStoreDtoMono = webClient.get()
-                .uri("products/{id}", id) // passed id will be fetched inside -- > {id}
-                .retrieve().bodyToMono(FakeStoreDto.class);
         /* .uri(String uri, Object... var) ==> values of path variables which are passed in uri {var1}/{var2}
             must be explicitly mentioned after ','
            */
+
+        Mono<FakeStoreDto> fakeStoreDtoMono = webClient.get()
+                .uri("/{id}", id) // passed id will be fetched inside -- > {id}
+                .retrieve().bodyToMono(FakeStoreDto.class);
         FakeStoreDto fakeStoreDto = fakeStoreDtoMono.block();
 
         ProductDto productDto = getProductDtoFromFakeStoreDto(fakeStoreDto);
 
         return productDto;
-//        return new ProductDto();
+    }
+
+    @Override
+    public List<ProductDto> getAllProducts() {
+
+        Mono<FakeStoreMultipleProductsDto> fakeStoreDtoMono = webClient.get().uri("?limit=5")
+                .retrieve().bodyToMono(FakeStoreMultipleProductsDto.class);
+
+        List<ProductDto> productDtoList = new ArrayList<>();
+
+        FakeStoreMultipleProductsDto fakeStoreDtos = fakeStoreDtoMono.block();
+
+        return getProductDtoFromFakeStoreMultipleProductDto(fakeStoreDtos);
+
     }
 }
