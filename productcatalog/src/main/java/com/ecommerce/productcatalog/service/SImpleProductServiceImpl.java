@@ -4,11 +4,18 @@ import com.ecommerce.productcatalog.dto.ProductDto;
 import com.ecommerce.productcatalog.models.Product;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("selfProductServiceImpl")
 public class SImpleProductServiceImpl implements ProductService{
     @Override
     public ProductDto getProductById(Long id) {
         System.out.println("Simple Project manager");
         return null;
+    }
+
+    @Override
+    public List<ProductDto> getAllProducts() {
+        return List.of();
     }
 }
