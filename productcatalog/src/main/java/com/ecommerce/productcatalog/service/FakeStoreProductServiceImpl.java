@@ -1,10 +1,7 @@
 package com.ecommerce.productcatalog.service;
 
-import com.ecommerce.productcatalog.dto.FakeStoreDto;
-import com.ecommerce.productcatalog.dto.FakeStoreMultipleProductsDto;
-import com.ecommerce.productcatalog.dto.ProductDto;
+import com.ecommerce.productcatalog.dto.*;
 
-import com.ecommerce.productcatalog.dto.StatusMessageDto;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
@@ -74,5 +71,13 @@ public class FakeStoreProductServiceImpl implements ProductService{
         return statusMessageDto == null ?
                 new StatusMessageDto("Not found", "Unable to get any response from fakestore delete api") :
                 statusMessageDto;
+    }
+
+    @Override
+    public ProductDto updateProduct(ProductDto productDto) {
+        Mono<FakeStoreDto> fakeStoreDtoMono= webClient.put().uri("/{id}", productDto.getId())
+                .body(productDto, ProductDto.class).retrieve().bodyToMono(FakeStoreDto.class);
+
+        return getProductDtoFromFakeStoreDto(fakeStoreDtoMono.block());
     }
 }
