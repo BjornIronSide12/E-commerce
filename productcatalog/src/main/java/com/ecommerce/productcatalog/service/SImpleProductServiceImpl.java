@@ -25,5 +25,10 @@ public class SImpleProductServiceImpl implements ProductService{
         return null;
     }
 
+    @Override
+    public ProductDto updateProduct(ProductDto productDto) {
+        return null;
+    }
+
 
 }

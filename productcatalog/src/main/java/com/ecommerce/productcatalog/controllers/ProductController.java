@@ -46,8 +46,13 @@ public class ProductController {
 
         return new ResponseEntity<>(
                 productService.deleteProductById(id),
-        HttpStatus.OK
-                );
+        HttpStatus.OK);
+    }
+
+    @PutMapping("/")
+    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto) {
+        return new ResponseEntity<>(productService.updateProduct(productDto)
+                , HttpStatus.OK);
     }
 
 }
