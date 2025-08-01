@@ -16,4 +16,11 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND
         );
     }
+
+    public ResponseEntity<ExceptionHandleDto> productNullExceptionHandler(ProductIsNullException productIsNullException) {
+        return new ResponseEntity<>(
+                new ExceptionHandleDto(HttpStatus.BAD_GATEWAY, productIsNullException.getMessage()),
+                HttpStatus.BAD_GATEWAY
+        );
+    }
 }

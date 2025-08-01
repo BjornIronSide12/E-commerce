@@ -3,6 +3,7 @@ package com.ecommerce.productcatalog.controllers;
 import com.ecommerce.productcatalog.dto.ProductDto;
 import com.ecommerce.productcatalog.dto.StatusMessageDto;
 import com.ecommerce.productcatalog.exception.NotFoundException;
+import com.ecommerce.productcatalog.exception.ProductIsNullException;
 import com.ecommerce.productcatalog.service.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class ProductController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProductById(@PathVariable("id") Long id) throws NotFoundException{
+    public ResponseEntity<ProductDto> getProductById(@PathVariable("id") Long id) throws NotFoundException, ProductIsNullException {
         return new ResponseEntity<>(productService.getProductById(id),
                 HttpStatus.OK);
     }
