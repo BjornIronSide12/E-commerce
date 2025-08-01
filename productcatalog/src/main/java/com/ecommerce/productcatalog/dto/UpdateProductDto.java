@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UpdateProductDto {
-    private int id;
+    private Long id;
     private String title;
     private String brand;
     private String model;

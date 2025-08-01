@@ -24,6 +24,7 @@ public class FakeStoreProductDto {
     // convert a FakeStoreProductDto object to ProductDto
     public static ProductDto getProductDtoFromFakeStoreProductDto(FakeStoreProductDto fakeStoreProductDto) {
         ProductDto productDto = new ProductDto();
+        productDto.setId(fakeStoreProductDto.getId());
         productDto.setTitle(fakeStoreProductDto.getTitle());
         productDto.setImage(fakeStoreProductDto.getImage());
         productDto.setPrice(fakeStoreProductDto.getPrice());

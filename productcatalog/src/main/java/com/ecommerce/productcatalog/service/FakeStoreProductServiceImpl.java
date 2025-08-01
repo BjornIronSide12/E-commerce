@@ -17,6 +17,7 @@ import reactor.core.publisher.Mono;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static com.ecommerce.productcatalog.dto.FakeStoreDto.getProductDtoFromFakeStoreDto;
 import static com.ecommerce.productcatalog.dto.FakeStoreMultipleProductsDto.getProductDtoFromFakeStoreMultipleProductDto;
@@ -33,7 +34,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
 
 
     @Override
-    public ProductDto getProductById(Long id) {
+    public ProductDto getProductById(Long id) throws NotFoundException{
         /* .uri(String uri, Object... var) ==> values of path variables which are passed in uri {var1}/{var2}
             must be explicitly mentioned after ','
            */
@@ -43,7 +44,11 @@ public class FakeStoreProductServiceImpl implements ProductService {
                 .uri("/{id}", id) // passed id will be fetched inside -- > {id}
                 .retrieve().bodyToMono(FakeStoreDto.class);
         FakeStoreDto fakeStoreDto = fakeStoreDtoMono.block();
-
+        // fakestore returns 149 id by default if id does not exists
+        // hence if fakestore.id != id, then the id that we sent is not found
+        if(fakeStoreDto == null || !id.equals(fakeStoreDto.getProduct().getId())) {
+            throw new NotFoundException("Product with id: " + fakeStoreDto.getProduct().getId() + " is not found");
+        }
         ProductDto productDto = getProductDtoFromFakeStoreDto(fakeStoreDto);
 
         return productDto;
@@ -87,7 +92,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
         FakeStoreDto fakeStoreDto = fakeStoreDtoMono.block();
 
         // handling null response
-        if(fakeStoreDto == null || fakeStoreDto.getProduct().getId() < 0) {
+        if(fakeStoreDto == null || !fakeStoreDto.getProduct().getId().equals(productDto.getId())) {
             throw new NotFoundException("Product with id: " + productDto.getId() + " is not found");
         }
         return getProductDtoFromFakeStoreDto(fakeStoreDto);
