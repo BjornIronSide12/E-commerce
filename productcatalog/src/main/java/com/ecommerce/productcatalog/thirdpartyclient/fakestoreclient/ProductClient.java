@@ -1,14 +1,13 @@
-package com.ecommerce.productcatalog.service;
+package com.ecommerce.productcatalog.thirdpartyclient.fakestoreclient;
 
 import com.ecommerce.productcatalog.dto.ProductDto;
 import com.ecommerce.productcatalog.dto.StatusMessageDto;
 import com.ecommerce.productcatalog.exception.NotFoundException;
 import com.ecommerce.productcatalog.exception.ProductIsNullException;
-import com.ecommerce.productcatalog.models.Product;
 
 import java.util.List;
 
-public interface ProductService {
+public interface ProductClient {
     ProductDto getProductById(Long id) throws NotFoundException, ProductIsNullException;
     List<ProductDto> getAllProducts();
     StatusMessageDto deleteProductById(Long id);
