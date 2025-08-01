@@ -2,9 +2,11 @@ package com.ecommerce.productcatalog.controllers;
 
 import com.ecommerce.productcatalog.dto.ProductDto;
 import com.ecommerce.productcatalog.dto.StatusMessageDto;
+import com.ecommerce.productcatalog.exception.NotFoundException;
 import com.ecommerce.productcatalog.service.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -49,8 +51,8 @@ public class ProductController {
         HttpStatus.OK);
     }
 
-    @PutMapping("/")
-    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto) {
+    @PutMapping(path="/", consumes= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto) throws NotFoundException {
         return new ResponseEntity<>(productService.updateProduct(productDto)
                 , HttpStatus.OK);
     }

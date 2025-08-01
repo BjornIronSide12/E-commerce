@@ -2,10 +2,14 @@ package com.ecommerce.productcatalog.service;
 
 import com.ecommerce.productcatalog.dto.*;
 
+import com.ecommerce.productcatalog.exception.NotFoundException;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.BodyInserter;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -19,7 +23,7 @@ import static com.ecommerce.productcatalog.dto.FakeStoreMultipleProductsDto.getP
 
 @Primary
 @Service("fakeStoreProductService")
-public class FakeStoreProductServiceImpl implements ProductService{
+public class FakeStoreProductServiceImpl implements ProductService {
 
     private final WebClient webClient;
 
@@ -74,10 +78,18 @@ public class FakeStoreProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductDto updateProduct(ProductDto productDto) {
-        Mono<FakeStoreDto> fakeStoreDtoMono= webClient.put().uri("/{id}", productDto.getId())
-                .body(productDto, ProductDto.class).retrieve().bodyToMono(FakeStoreDto.class);
+    public ProductDto updateProduct(ProductDto productDto) throws NotFoundException{
+        UpdateProductDto updateProductDto = ProductDto.getUpdateProductDtoFromProductDto(productDto);
+        Mono<FakeStoreDto> fakeStoreDtoMono= webClient.put().uri("/{id}", updateProductDto.getId())
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(BodyInserters.fromValue(updateProductDto)).retrieve().bodyToMono(FakeStoreDto.class);
 
-        return getProductDtoFromFakeStoreDto(fakeStoreDtoMono.block());
+        FakeStoreDto fakeStoreDto = fakeStoreDtoMono.block();
+
+        // handling null response
+        if(fakeStoreDto == null || fakeStoreDto.getProduct().getId() < 0) {
+            throw new NotFoundException("Product with id: " + productDto.getId() + " is not found");
+        }
+        return getProductDtoFromFakeStoreDto(fakeStoreDto);
     }
 }

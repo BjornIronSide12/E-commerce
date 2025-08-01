@@ -16,4 +16,9 @@ public class ProductDto {
     String model;
     String color;
     String category;
+    String discount;
+
+    public static UpdateProductDto getUpdateProductDtoFromProductDto(ProductDto productDto) {
+        return new UpdateProductDto(productDto.getId(), productDto.getTitle(), productDto.getBrand(), productDto.getModel(), productDto.color, productDto.category, productDto.discount);
+    }
 }
