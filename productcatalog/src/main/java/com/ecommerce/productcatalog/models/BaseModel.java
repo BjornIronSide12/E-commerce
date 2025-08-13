@@ -7,7 +7,7 @@ import jakarta.persistence.MappedSuperclass;
 import java.util.UUID;
 
 @MappedSuperclass
-public class BaseModel {
+public abstract class BaseModel {
 
     @Id
     @GeneratedValue(generator = "myGenerator")
