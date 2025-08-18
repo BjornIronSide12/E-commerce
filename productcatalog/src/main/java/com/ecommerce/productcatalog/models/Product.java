@@ -2,8 +2,16 @@ package com.ecommerce.productcatalog.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product extends BaseModel{
 
     private String title;
@@ -11,5 +19,5 @@ public class Product extends BaseModel{
     private String image;
     @ManyToOne
     private Category category;
-    private float price;
+    private double price;
 }
