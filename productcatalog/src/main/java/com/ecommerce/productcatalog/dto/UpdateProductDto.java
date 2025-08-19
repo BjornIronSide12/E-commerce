@@ -1,5 +1,6 @@
 package com.ecommerce.productcatalog.dto;
 
+import com.ecommerce.productcatalog.models.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,6 +12,6 @@ public class UpdateProductDto {
     private String brand;
     private String model;
     private String color;
-    private String category;
+    private Category category;
     private String discount;
 }

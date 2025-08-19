@@ -1,6 +1,7 @@
 package com.ecommerce.productcatalog.dto;
 
 
+import com.ecommerce.productcatalog.models.Category;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ public class FakeStoreProductDto {
     String brand;
     String model;
     String color;
-    String category;
+    Category category;
     Boolean popular;
     Integer discount;
 
