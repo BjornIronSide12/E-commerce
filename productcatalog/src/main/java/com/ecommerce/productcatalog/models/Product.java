@@ -1,5 +1,6 @@
 package com.ecommerce.productcatalog.models;
 
+import com.ecommerce.productcatalog.dto.ProductDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -20,4 +21,16 @@ public class Product extends BaseModel{
     @ManyToOne
     private Category category;
     private double price;
+
+    public static ProductDto productToProductDTO(Product product) {
+        ProductDto productDto = new ProductDto();
+
+        productDto.setTitle(product.getTitle());
+        productDto.setDescription(product.getDescription());
+        productDto.setImage(product.getImage());
+        productDto.setCategory(product.getCategory());
+        productDto.setPrice(product.getPrice());
+
+        return productDto;
+    }
 }

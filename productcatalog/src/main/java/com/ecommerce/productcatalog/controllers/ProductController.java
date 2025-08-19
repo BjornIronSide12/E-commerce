@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/products")
@@ -20,7 +21,7 @@ public class ProductController {
 
     // Field Injection
 //    @Autowired
-    @Qualifier("fakeStoreProductService")
+    @Qualifier("productServiceImpl")
     private ProductService productService;
 
 //    Constructor injection
