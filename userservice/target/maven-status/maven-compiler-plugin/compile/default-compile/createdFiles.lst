@@ -1,0 +1,16 @@
+com\ecommerce\userservice\service\SessionServiceImpl.class
+com\ecommerce\userservice\dto\UserDto.class
+com\ecommerce\userservice\repository\SessionRepository.class
+com\ecommerce\userservice\controller\UserController.class
+com\ecommerce\userservice\entity\UserEntity.class
+com\ecommerce\userservice\service\SessionService.class
+com\ecommerce\userservice\entity\BaseEntity.class
+com\ecommerce\userservice\entity\LoginRequestEntity.class
+com\ecommerce\userservice\dto\LoginRequestDto.class
+com\ecommerce\userservice\UserserviceApplication.class
+com\ecommerce\userservice\repository\UserRepository.class
+com\ecommerce\userservice\configuration\SecurityConfig.class
+com\ecommerce\userservice\utility\mapper\DtoEntityMapper.class
+com\ecommerce\userservice\entity\SessionEntity.class
+com\ecommerce\userservice\service\UserService.class
+com\ecommerce\userservice\service\UserServiceImpl.class
